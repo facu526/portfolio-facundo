@@ -1,21 +1,4 @@
-// pages/index.js
-import { useState } from 'react';
-
 export default function Home() {
-  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
-
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    alert('Formulario enviado');
-  };
-
   return (
     <div className="min-h-screen bg-black text-white flex flex-col items-center px-6 py-8 space-y-16">
       {/* Hero con fondo degradado oscuro */}
@@ -62,12 +45,14 @@ export default function Home() {
       <section className="w-full bg-gray-800 py-12 px-6">
         <div className="max-w-3xl mx-auto text-center space-y-6">
           <h3 className="text-2xl font-semibold">Contáctame</h3>
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form
+            action="https://formspree.io/f/mqaqqjpr?redirect=https://tusitio.vercel.app/gracias"
+            method="POST"
+            className="space-y-4"
+          >
             <input
               type="text"
               name="name"
-              value={formData.name}
-              onChange={handleChange}
               placeholder="Nombre"
               className="w-full px-4 py-2 bg-gray-700 border border-white rounded text-white placeholder-white"
               required
@@ -75,16 +60,12 @@ export default function Home() {
             <input
               type="email"
               name="email"
-              value={formData.email}
-              onChange={handleChange}
               placeholder="Correo electrónico"
               className="w-full px-4 py-2 bg-gray-700 border border-white rounded text-white placeholder-white"
               required
             />
             <textarea
               name="message"
-              value={formData.message}
-              onChange={handleChange}
               placeholder="Mensaje"
               className="w-full px-4 py-2 bg-gray-700 border border-white rounded text-white placeholder-white"
               rows={4}
