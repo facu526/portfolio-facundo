@@ -48,7 +48,22 @@ export default function Home() {
 
   const isDark = theme === "dark";
 
-  const fullText = "FullStack Developer";
+  const typingTexts =
+    language === "es"
+      ? [
+          "Desarrollador Web Full Stack",
+          "Aplicaciones web para negocios",
+          "Automatización e IA aplicada",
+          "Soluciones digitales reales",
+        ]
+      : [
+          "Full Stack Web Developer",
+          "Web apps for businesses",
+          "Automation and applied AI",
+          "Real digital solutions",
+        ];
+  const [typingIndex, setTypingIndex] = useState(0);
+  const fullText = typingTexts[typingIndex];
   const [typedText, setTypedText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
 
@@ -70,12 +85,13 @@ export default function Home() {
 
         if (next.length === 0) {
           setIsDeleting(false);
+          setTypingIndex((current) => (current + 1) % typingTexts.length);
         }
       }
     }, typingSpeed);
 
     return () => clearTimeout(timeout);
-  }, [typedText, isDeleting, fullText]);
+  }, [typedText, isDeleting, fullText, typingTexts.length]);
 
   useEffect(() => {
     const ids = ["home", "experience", "projects", "skills", "about", "contact"];
@@ -117,36 +133,37 @@ export default function Home() {
           experience: "EXPERIENCIA",
           projects: "PROYECTOS",
           skills: "HABILIDADES",
-          about: "SOBRE MI",
+          about: "SOBRE MÍ",
           contact: "CONTACTO",
         },
-        topBadge: "Disponible para pasantías y oportunidades junior",
+        topBadge: "Disponible para oportunidades junior, pasantías y proyectos web",
         heroTitle: "Facundo",
         heroTitleAccent: "Sanchez",
         heroDescription:
-          "Soy estudiante avanzado de Ingeniería en Informática en UADE, enfocado en desarrollo de software, resolución práctica de problemas y construcción de productos digitales con valor real.",
+          "Estudiante avanzado de Ingeniería en Informática en UADE, enfocado en el desarrollo de aplicaciones web modernas, funcionales y orientadas a resolver problemas reales de negocios.\n\nTrabajo con tecnologías como Next.js, React, TypeScript, Tailwind CSS, Node.js, Prisma y bases de datos SQL, combinando frontend, backend, experiencia de usuario y lógica de negocio.",
         heroExtraText:
-          "Construyendo aplicaciones web útiles y creciendo como desarrollador de software.",
+          "Construyo soluciones digitales claras, escalables y fáciles de usar: sistemas de reservas, paneles administrativos, landing pages, catálogos digitales y automatizaciones.",
         locationBadge: "Monte Grande, Argentina",
         viewProjects: "Ver proyectos",
         contactMe: "Contactarme",
         aboutLabel: "Sobre mí",
         aboutTitle: "Quién soy",
         aboutText:
-          "Actualmente estoy cursando el quinto año de la carrera de Ingeniería en Informática en la Universidad Argentina de la Empresa (UADE). Tengo un gran interés en el desarrollo de software y en la creación de soluciones digitales prácticas que resuelvan problemas reales. Busco seguir creciendo profesionalmente a través de proyectos reales, experiencia práctica y aprendizaje continuo.",
-        skillsLabel: "Skills",
-        skillsTitle: "Tecnologías y herramientas",
+          "Soy Facundo Sanchez, estudiante avanzado de Ingeniería en Informática en UADE y desarrollador web full stack en formación.\n\nMe enfoco en crear aplicaciones web orientadas a necesidades reales: plataformas de reservas, sistemas de gestión, paneles administrativos, catálogos digitales y sitios profesionales para negocios o marcas personales.\n\nMe interesa construir productos que no sean solo visualmente atractivos, sino también útiles, ordenados y escalables. Busco combinar una buena experiencia de usuario con lógica de negocio, bases de datos, automatizaciones y herramientas modernas de desarrollo.\n\nActualmente estoy profundizando en el desarrollo full stack con Next.js, React, TypeScript, Node.js, Prisma, PostgreSQL y soluciones asistidas por inteligencia artificial para optimizar procesos y reducir tareas manuales.",
+        skillsLabel: "Habilidades",
+        skillsTitle: "Tecnologías, herramientas y enfoque",
         experienceLabel: "Experiencia",
         experienceTitle: "Formación y recorrido profesional",
         professionalExperience: "Experiencia profesional",
         experienceRole: "Pasantía en Mantenimiento de Sistemas — Grupo ODIM",
         experienceDate: "Abril 2025 — Septiembre 2025",
         experienceItems: [
-          "Mantenimiento preventivo y correctivo de sistemas internos.",
           "Soporte técnico a usuarios, software y hardware.",
-          "Documentación de procesos y asistencia interna.",
-          "Configuración básica de equipos, redes y sistemas.",
+          "Mantenimiento preventivo y correctivo de equipos y herramientas informáticas.",
+          "Documentación de procesos, incidencias y asistencia interna.",
+          "Configuración básica de equipos, redes y entornos de trabajo.",
           "Colaboración con el área IT para asegurar continuidad operativa.",
+          "Participación en tareas vinculadas a mejora de procesos y soporte de sistemas.",
         ],
         education: "Educación",
         educationTitle: "Ingeniería en Informática — UADE",
@@ -155,36 +172,37 @@ export default function Home() {
         secondarySchool: "Instituto Grilli Monte Grande (2016 — 2021)",
         secondaryDegree: "Bachiller con orientación en economía",
         coursesCertifications: "Cursos y certificaciones",
-        course1: "JavaScript: Desde cero con NodeJS — UDEMY",
-        course2: "First Certificate in English (FCE) — Cambridge, Nivel B2",
+        course1: "JavaScript: Desde cero con NodeJS — Udemy",
+        course2: "First Certificate in English (FCE) — Cambridge, nivel B2",
         languages: "Idiomas",
-        language1: "Español: Nativo",
-        language2: "Inglés: Avanzado",
+        language1: "Español: nativo",
+        language2: "Inglés: avanzado",
         projectsLabel: "Proyectos",
-        projectsTitle: "Trabajo actual y planificado",
+        projectsTitle: "Proyecto destacado",
         projectsDescription:
-          "Actualmente estoy enfocado en construir aplicaciones prácticas que ayuden a resolver necesidades reales. Estos son los principales proyectos en los que estoy trabajando o que planeo desarrollar próximamente.",
-        projectStatus1: "En desarrollo",
-        projectStatus2: "Proyecto planificado",
-        projectStatus3: "Proyecto planificado",
-        project1Title: "App de Seguimiento de Gimnasio",
+          "Una muestra real de mi enfoque: construir productos web claros, responsive y orientados a resolver una necesidad concreta de negocio.",
+        projectStatus1: "Proyecto desarrollado",
+        project1Title: "Plataforma de Reservas de Canchas",
         project1Description:
-          "Aplicación web para registrar entrenamientos, ejercicios, series y progreso físico. Pensada para uso real y orientada a mejorar el seguimiento personal dentro del gimnasio.",
-        project2Title: "CV Builder / Gestor de CVs",
-        project2Description:
-          "Sistema web para crear, organizar y gestionar currículums de manera práctica. Enfocado en automatizar y simplificar la generación de perfiles profesionales.",
-        project3Title: "App Full Stack de Gestión",
-        project3Description:
-          "Aplicación CRUD completa con autenticación, base de datos y panel de administración. Proyecto orientado a reforzar experiencia práctica en frontend y backend.",
+          "Aplicación web orientada a complejos deportivos para presentar canchas, disponibilidad, información del negocio y facilitar la reserva por parte de los usuarios.\n\nEl proyecto fue desarrollado con foco en una experiencia simple, visual y responsive, pensada para que el usuario pueda consultar información rápidamente desde celular o escritorio y avanzar al contacto o reserva sin fricción.",
+        project1Features: [
+          "Landing page profesional para complejo deportivo.",
+          "Sección de canchas y servicios.",
+          "Diseño responsive para mobile y desktop.",
+          "Comunicación clara de horarios, disponibilidad y propuesta del negocio.",
+          "Enfoque comercial orientado a conversión y reservas.",
+          "Base preparada para futuras mejoras como panel administrativo, disponibilidad dinámica y gestión de horarios.",
+        ],
+        projectDemo: "Ver demo",
         contactLabel: "Contacto",
         contactTitle: "Conectemos",
         contactDescription:
-          "Estoy interesado en pasantías, roles junior y oportunidades para seguir aprendiendo mientras construyo productos reales y gano experiencia profesional.",
+          "Estoy abierto a oportunidades junior, pasantías, proyectos freelance y colaboraciones donde pueda aportar en el desarrollo de soluciones web, sistemas internos, automatizaciones o productos digitales.\n\nSi tenés una idea, negocio o proceso que podría mejorarse con tecnología, podemos conectar y evaluar una solución.",
         email: "Email",
         github: "GitHub",
         linkedin: "LinkedIn",
         phone: "Teléfono",
-        roleSubtitle: "Ingeniería en Informática | Desarrollador Web",
+        roleSubtitle: "Ingeniería en Informática | Desarrollador Web Full Stack",
         languageButton: "EN",
       },
       en: {
@@ -196,71 +214,73 @@ export default function Home() {
           about: "ABOUT",
           contact: "CONTACT",
         },
-        topBadge: "Available for internships and junior opportunities",
+        topBadge: "Available for junior opportunities, internships and web projects",
         heroTitle: "Facundo",
         heroTitleAccent: "Sanchez",
         heroDescription:
-          "I am an advanced Information Systems Engineering student at UADE, focused on software development, practical problem-solving, and building digital products with real-world value.",
+          "Advanced Computer Engineering student at UADE, focused on building modern, functional web applications designed to solve real business problems.\n\nI work with technologies such as Next.js, React, TypeScript, Tailwind CSS, Node.js, Prisma and SQL databases, combining frontend, backend, user experience and business logic.",
         heroExtraText:
-          "Building useful web apps and growing as a software developer.",
+          "I build clear, scalable and easy-to-use digital solutions: booking systems, admin panels, landing pages, digital catalogs and automations.",
         locationBadge: "Monte Grande, Argentina",
         viewProjects: "View projects",
         contactMe: "Contact me",
         aboutLabel: "About",
         aboutTitle: "Who I am",
         aboutText:
-          "I am currently in the fifth year of my Information Systems Engineering degree at Universidad Argentina de la Empresa (UADE). I have a strong interest in software development and in creating practical digital solutions that solve real problems. I am looking to continue growing professionally through real projects, hands-on experience, and continuous learning.",
+          "I am Facundo Sanchez, an advanced Computer Engineering student at UADE and a full stack web developer in training.\n\nI focus on creating web applications for real needs: booking platforms, management systems, admin panels, digital catalogs and professional websites for businesses or personal brands.\n\nI am interested in building products that are not only visually polished, but also useful, organized and scalable. I aim to combine good user experience with business logic, databases, automations and modern development tools.\n\nI am currently deepening my full stack development skills with Next.js, React, TypeScript, Node.js, Prisma, PostgreSQL and AI-assisted solutions to optimize processes and reduce manual work.",
         skillsLabel: "Skills",
-        skillsTitle: "Technologies and tools",
+        skillsTitle: "Technologies, tools and focus areas",
         experienceLabel: "Experience",
         experienceTitle: "Education and professional background",
         professionalExperience: "Professional Experience",
         experienceRole: "Systems Maintenance Intern — Grupo ODIM",
         experienceDate: "April 2025 — September 2025",
         experienceItems: [
-          "Preventive and corrective maintenance of internal systems.",
           "Technical support for users, software, and hardware.",
-          "Process documentation and internal assistance.",
-          "Basic configuration of equipment, networks, and systems.",
-          "Collaboration with the IT area to support operational continuity.",
+          "Preventive and corrective maintenance of IT equipment and tools.",
+          "Documentation of processes, incidents, and internal support tasks.",
+          "Basic setup of equipment, networks, and work environments.",
+          "Collaboration with the IT team to support operational continuity.",
+          "Participation in tasks related to process improvement and systems support.",
         ],
         education: "Education",
-        educationTitle: "Information Systems Engineering — UADE",
+        educationTitle: "Computer Engineering — UADE",
         educationDate: "2022 — Present | Currently in 5th year",
         secondaryEducation: "Secondary Education",
         secondarySchool: "Instituto Grilli Monte Grande (2016 — 2021)",
         secondaryDegree: "Economics-oriented high school diploma",
         coursesCertifications: "Courses & Certifications",
-        course1: "JavaScript: Desde cero con NodeJS — UDEMY",
-        course2: "First Certificate in English (FCE) — Cambridge, B2 Level",
+        course1: "JavaScript: Desde cero con NodeJS — Udemy",
+        course2: "First Certificate in English (FCE) — Cambridge, B2 level",
         languages: "Languages",
         language1: "Spanish: Native",
         language2: "English: Advanced",
         projectsLabel: "Projects",
-        projectsTitle: "Current and planned work",
+        projectsTitle: "Featured project",
         projectsDescription:
-          "I am currently focused on building practical applications that help solve real needs. These are the main projects I am working on or planning to develop next.",
-        projectStatus1: "Currently Building",
-        projectStatus2: "Planned Project",
-        projectStatus3: "Planned Project",
-        project1Title: "Gym Tracking App",
+          "A real example of my approach: building clear, responsive web products focused on solving a concrete business need.",
+        projectStatus1: "Developed project",
+        project1Title: "Sports Court Booking Platform",
         project1Description:
-          "Web application to track workouts, exercises, sets, and physical progress. Designed for real use and focused on improving personal training follow-up.",
-        project2Title: "CV Builder / CV Manager",
-        project2Description:
-          "Web system to create, organize, and manage resumes in a practical way. Focused on automating and simplifying professional profile creation.",
-        project3Title: "Full Stack Management App",
-        project3Description:
-          "Complete CRUD application with authentication, database, and admin panel. Project focused on strengthening practical frontend and backend experience.",
+          "Web application designed for sports facilities to showcase courts, availability, business information and help users move quickly toward booking or contacting the venue.\n\nThe project was developed with a simple, visual and responsive experience in mind, so users can quickly check information from mobile or desktop and move toward contact or booking without friction.",
+        project1Features: [
+          "Professional landing page for a sports facility.",
+          "Courts and services section.",
+          "Responsive design for mobile and desktop.",
+          "Clear communication of schedules, availability and business value proposition.",
+          "Commercial approach focused on conversion and bookings.",
+          "Foundation prepared for future improvements such as an admin panel, dynamic availability and schedule management.",
+        ],
+        projectDemo: "View demo",
         contactLabel: "Contact",
-        contactTitle: "Let’s connect",
+        contactTitle: "Let's connect",
         contactDescription:
-          "I am interested in internships, junior roles, and opportunities to keep learning while building real products and gaining professional experience.",
+          "I am open to junior opportunities, internships, freelance projects and collaborations where I can contribute to web solutions, internal systems, automations or digital products.\n\nIf you have an idea, business or process that could be improved with technology, we can connect and evaluate a solution.",
         email: "Email",
         github: "GitHub",
         linkedin: "LinkedIn",
         phone: "Phone",
-        roleSubtitle: "Information Systems Engineering | Web Developer",
+        roleSubtitle: "Computer Engineering | Full Stack Web Developer",
         languageButton: "ES",
       },
     };
@@ -269,59 +289,85 @@ export default function Home() {
   }, [language]);
 
   const skillsRow1 = [
-    "React",
-    "Next.js",
-    "Tailwind CSS",
-    "Node.js",
-    "Express.js",
     "HTML",
     "CSS",
     "JavaScript",
     "TypeScript",
-  ];
-
-  const skillsRow2 = [
-    "Git",
-    "GitHub",
-    "Docker",
-    "REST APIs",
-    "Java",
-    "Python",
-    "SQL",
-    "PostgreSQL",
-    "Prisma",
-  ];
-
-  const skillsRow3 = [
-    "CRUD Apps",
-    "Authentication",
-    "Database Design",
-    "Problem Solving",
-    "Clean UI",
+    "React",
+    "Next.js",
+    "Tailwind CSS",
     "Responsive Design",
-    "Frontend",
-    "Backend",
-    "Full Stack",
+    "Clean UI",
   ];
+
+  const skillsRow2 =
+    language === "es"
+      ? [
+          "Node.js",
+          "APIs REST",
+          "Prisma",
+          "Autenticación",
+          "Lógica de negocio",
+          "CRUD Apps",
+          "PostgreSQL",
+          "SQL",
+          "SQL Server",
+          "MySQL",
+          "Neo4j",
+          "Modelado de datos",
+        ]
+      : [
+          "Node.js",
+          "REST APIs",
+          "Prisma",
+          "Authentication",
+          "Business logic",
+          "CRUD Apps",
+          "PostgreSQL",
+          "SQL",
+          "SQL Server",
+          "MySQL",
+          "Neo4j",
+          "Data modeling",
+        ];
+
+  const skillsRow3 =
+    language === "es"
+      ? [
+          "Git",
+          "GitHub",
+          "VS Code",
+          "Docker",
+          "Postman",
+          "Vercel",
+          "Automatización de procesos",
+          "IA aplicada",
+          "Integración de herramientas",
+          "Productividad digital",
+          "Asistentes con IA",
+        ]
+      : [
+          "Git",
+          "GitHub",
+          "VS Code",
+          "Docker",
+          "Postman",
+          "Vercel",
+          "Process automation",
+          "Applied AI",
+          "Tool integration",
+          "Digital productivity",
+          "AI assistants",
+        ];
 
   const projects = [
     {
       title: content.project1Title,
       description: content.project1Description,
-      stack: ["Next.js", "React", "Prisma", "PostgreSQL"],
+      features: content.project1Features,
+      stack: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Vercel"],
       status: content.projectStatus1,
-    },
-    {
-      title: content.project2Title,
-      description: content.project2Description,
-      stack: ["Next.js", "React", "Node.js", "SQL"],
-      status: content.projectStatus2,
-    },
-    {
-      title: content.project3Title,
-      description: content.project3Description,
-      stack: ["React", "Node.js", "PostgreSQL", "Docker"],
-      status: content.projectStatus3,
+      demoUrl: "https://reserva-cancha-zeta.vercel.app/",
     },
   ];
 
@@ -346,9 +392,9 @@ export default function Home() {
     >
       <section className="mx-auto max-w-6xl px-6 py-4 md:px-10 lg:px-12">
         <header className="sticky top-0 z-50 pt-2">
-          <div className="flex items-center justify-between gap-4">
+          <div className="flex flex-wrap items-center justify-between gap-4">
             <nav
-              className={`flex items-center gap-1 rounded-full border px-2 py-2 shadow-lg backdrop-blur ${
+              className={`flex w-full min-w-0 items-center gap-1 overflow-x-auto rounded-full border px-2 py-2 shadow-lg backdrop-blur md:w-auto md:overflow-visible ${
                 isDark
                   ? "border-white/10 bg-[#1b1b1b]/80"
                   : "border-black/10 bg-white/90"
@@ -465,7 +511,7 @@ export default function Home() {
               </div>
 
               <p
-                className={`mt-8 max-w-2xl text-base leading-7 md:text-lg ${
+                className={`mt-8 max-w-2xl whitespace-pre-line text-base leading-7 md:text-lg ${
                   isDark ? "text-white/75" : "text-black/70"
                 }`}
               >
@@ -571,7 +617,7 @@ export default function Home() {
               {content.aboutTitle}
             </h3>
             <p
-              className={`mt-6 text-base leading-8 ${
+              className={`mt-6 whitespace-pre-line text-base leading-8 ${
                 isDark ? "text-white/75" : "text-black/70"
               }`}
             >
@@ -629,9 +675,9 @@ export default function Home() {
                 {content.experienceDate}
               </p>
 
-              <ul className={isDark ? "mt-5 space-y-3 text-white/75" : "mt-5 space-y-3 text-black/70"}>
+              <ul className={isDark ? "mt-5 list-disc space-y-3 pl-5 text-white/75" : "mt-5 list-disc space-y-3 pl-5 text-black/70"}>
                 {content.experienceItems.map((item) => (
-                  <li key={item}>• {item}</li>
+                  <li key={item}>{item}</li>
                 ))}
               </ul>
             </div>
@@ -703,7 +749,7 @@ export default function Home() {
             {content.projectsDescription}
           </p>
 
-          <div className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+          <div className="mt-10 grid max-w-3xl gap-6">
             {projects.map((project) => (
               <article
                 key={project.title}
@@ -717,9 +763,15 @@ export default function Home() {
                   {project.status}
                 </p>
                 <h4 className="mt-2 text-xl font-semibold">{project.title}</h4>
-                <p className={isDark ? "mt-4 text-sm leading-7 text-white/75" : "mt-4 text-sm leading-7 text-black/70"}>
+                <p className={isDark ? "mt-4 whitespace-pre-line text-sm leading-7 text-white/75" : "mt-4 whitespace-pre-line text-sm leading-7 text-black/70"}>
                   {project.description}
                 </p>
+
+                <ul className={isDark ? "mt-5 list-disc space-y-2 pl-5 text-sm leading-6 text-white/70" : "mt-5 list-disc space-y-2 pl-5 text-sm leading-6 text-black/65"}>
+                  {project.features.map((feature) => (
+                    <li key={feature}>{feature}</li>
+                  ))}
+                </ul>
 
                 <div className="mt-5 flex flex-wrap gap-2">
                   {project.stack.map((tech) => (
@@ -735,6 +787,19 @@ export default function Home() {
                     </span>
                   ))}
                 </div>
+
+                <a
+                  href={project.demoUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className={`mt-6 inline-flex rounded-2xl px-5 py-3 text-sm font-medium transition ${
+                    isDark
+                      ? "bg-white text-black hover:opacity-90"
+                      : "bg-[#111827] text-white hover:opacity-90"
+                  }`}
+                >
+                  {content.projectDemo}
+                </a>
               </article>
             ))}
           </div>
@@ -758,7 +823,7 @@ export default function Home() {
             <h3 className="mt-3 text-3xl font-bold tracking-tight">
               {content.contactTitle}
             </h3>
-            <p className={isDark ? "mt-4 max-w-2xl text-white/75" : "mt-4 max-w-2xl text-black/70"}>
+            <p className={isDark ? "mt-4 max-w-2xl whitespace-pre-line text-white/75" : "mt-4 max-w-2xl whitespace-pre-line text-black/70"}>
               {content.contactDescription}
             </p>
 
@@ -821,7 +886,7 @@ export default function Home() {
                 <p className={isDark ? "text-sm text-white/50" : "text-sm text-black/50"}>
                   {content.phone}
                 </p>
-                <p className="mt-1 font-medium">+54 11 2668-4038</p>
+                <p className="mt-1 font-medium">+54 11 26684038</p>
               </div>
             </div>
           </div>
