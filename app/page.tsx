@@ -113,12 +113,12 @@ export default function Home() {
     const data = {
       es: {
         nav: {
-          home: "HOME",
-          experience: "EXPERIENCE",
-          projects: "PROJECTS",
-          skills: "SKILLS",
-          about: "ABOUT",
-          contact: "CONTACT",
+          home: "INICIO",
+          experience: "EXPERIENCIA",
+          projects: "PROYECTOS",
+          skills: "HABILIDADES",
+          about: "SOBRE MI",
+          contact: "CONTACTO",
         },
         topBadge: "Disponible para pasantías y oportunidades junior",
         heroTitle: "Facundo",
