@@ -595,7 +595,7 @@ export default function Home() {
                 }`}
               >
                 <img
-                  src="/profile.jpg"
+                  src="/profile.png"
                   alt="Facundo Sanchez"
                   className="h-full w-full object-cover"
                 />
