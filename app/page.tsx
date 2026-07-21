@@ -1,9 +1,17 @@
 "use client";
 
+import Image from "next/image";
 import { CSSProperties, useEffect, useMemo, useState } from "react";
+import ProjectsSection from "./components/projects-section";
+import TypewriterText from "./components/typewriter-text";
 
 type Language = "es" | "en";
 type Theme = "dark" | "light";
+
+const phrases = [
+  "Desarrollador web full stack",
+  "Aplicaciones web para negocios",
+] as const;
 
 type SkillRowProps = {
   items: string[];
@@ -48,53 +56,8 @@ export default function Home() {
 
   const isDark = theme === "dark";
 
-  const typingTexts =
-    language === "es"
-      ? [
-          "Desarrollador Web Full Stack",
-          "Aplicaciones web para negocios",
-          "Automatización e IA aplicada",
-          "Soluciones digitales reales",
-        ]
-      : [
-          "Full Stack Web Developer",
-          "Web apps for businesses",
-          "Automation and applied AI",
-          "Real digital solutions",
-        ];
-  const [typingIndex, setTypingIndex] = useState(0);
-  const fullText = typingTexts[typingIndex];
-  const [typedText, setTypedText] = useState("");
-  const [isDeleting, setIsDeleting] = useState(false);
-
   useEffect(() => {
-    const typingSpeed = isDeleting ? 55 : 95;
-    const pauseTime = 1200;
-
-    const timeout = setTimeout(() => {
-      if (!isDeleting) {
-        const next = fullText.slice(0, typedText.length + 1);
-        setTypedText(next);
-
-        if (next === fullText) {
-          setTimeout(() => setIsDeleting(true), pauseTime);
-        }
-      } else {
-        const next = fullText.slice(0, typedText.length - 1);
-        setTypedText(next);
-
-        if (next.length === 0) {
-          setIsDeleting(false);
-          setTypingIndex((current) => (current + 1) % typingTexts.length);
-        }
-      }
-    }, typingSpeed);
-
-    return () => clearTimeout(timeout);
-  }, [typedText, isDeleting, fullText, typingTexts.length]);
-
-  useEffect(() => {
-    const ids = ["home", "experience", "projects", "skills", "about", "contact"];
+    const ids = ["home", "proyectos", "experience", "skills", "about", "contact"];
 
     const handleScroll = () => {
       const scrollY = window.scrollY + 140;
@@ -136,20 +99,17 @@ export default function Home() {
           about: "SOBRE MÍ",
           contact: "CONTACTO",
         },
-        topBadge: "Disponible para oportunidades junior, pasantías y proyectos web",
         heroTitle: "Facundo",
         heroTitleAccent: "Sanchez",
         heroDescription:
-          "Estudiante avanzado de Ingeniería en Informática en UADE, enfocado en el desarrollo de aplicaciones web modernas, funcionales y orientadas a resolver problemas reales de negocios.\n\nTrabajo con tecnologías como Next.js, React, TypeScript, Tailwind CSS, Node.js, Prisma y bases de datos SQL, combinando frontend, backend, experiencia de usuario y lógica de negocio.",
-        heroExtraText:
-          "Construyo soluciones digitales claras, escalables y fáciles de usar: sistemas de reservas, paneles administrativos, landing pages, catálogos digitales y automatizaciones.",
+          "Creo productos digitales claros, funcionales y pensados para resolver necesidades reales.",
         locationBadge: "Monte Grande, Argentina",
         viewProjects: "Ver proyectos",
         contactMe: "Contactarme",
         aboutLabel: "Sobre mí",
         aboutTitle: "Quién soy",
         aboutText:
-          "Soy Facundo Sanchez, estudiante avanzado de Ingeniería en Informática en UADE y desarrollador web full stack en formación.\n\nMe enfoco en crear aplicaciones web orientadas a necesidades reales: plataformas de reservas, sistemas de gestión, paneles administrativos, catálogos digitales y sitios profesionales para negocios o marcas personales.\n\nMe interesa construir productos que no sean solo visualmente atractivos, sino también útiles, ordenados y escalables. Busco combinar una buena experiencia de usuario con lógica de negocio, bases de datos, automatizaciones y herramientas modernas de desarrollo.\n\nActualmente estoy profundizando en el desarrollo full stack con Next.js, React, TypeScript, Node.js, Prisma, PostgreSQL y soluciones asistidas por inteligencia artificial para optimizar procesos y reducir tareas manuales.",
+          "Soy Facundo Sanchez, estudiante avanzado de Ingeniería en Informática. Me interesa convertir ideas en productos que realmente puedan usarse y no quedarme únicamente con lo académico. Por eso, además de formarme, desarrollo proyectos reales para negocios y personas, desde sitios institucionales hasta sistemas de reservas y gestión.\n\nMe gusta involucrarme en todo el proceso: entender el problema, pensar una solución clara, construirla y mejorarla hasta que funcione bien. Busco seguir creciendo como desarrollador, participar en proyectos desafiantes y crear soluciones que tengan una utilidad concreta.",
         skillsLabel: "Habilidades",
         skillsTitle: "Tecnologías, herramientas y enfoque",
         experienceLabel: "Experiencia",
@@ -214,20 +174,17 @@ export default function Home() {
           about: "ABOUT",
           contact: "CONTACT",
         },
-        topBadge: "Available for junior opportunities, internships and web projects",
         heroTitle: "Facundo",
         heroTitleAccent: "Sanchez",
         heroDescription:
-          "Advanced Computer Engineering student at UADE, focused on building modern, functional web applications designed to solve real business problems.\n\nI work with technologies such as Next.js, React, TypeScript, Tailwind CSS, Node.js, Prisma and SQL databases, combining frontend, backend, user experience and business logic.",
-        heroExtraText:
-          "I build clear, scalable and easy-to-use digital solutions: booking systems, admin panels, landing pages, digital catalogs and automations.",
+          "I create clear, functional digital products designed to solve real needs.",
         locationBadge: "Monte Grande, Argentina",
         viewProjects: "View projects",
         contactMe: "Contact me",
         aboutLabel: "About",
         aboutTitle: "Who I am",
         aboutText:
-          "I am Facundo Sanchez, an advanced Computer Engineering student at UADE and a full stack web developer in training.\n\nI focus on creating web applications for real needs: booking platforms, management systems, admin panels, digital catalogs and professional websites for businesses or personal brands.\n\nI am interested in building products that are not only visually polished, but also useful, organized and scalable. I aim to combine good user experience with business logic, databases, automations and modern development tools.\n\nI am currently deepening my full stack development skills with Next.js, React, TypeScript, Node.js, Prisma, PostgreSQL and AI-assisted solutions to optimize processes and reduce manual work.",
+          "I am Facundo Sanchez, an advanced Computer Engineering student. I am interested in turning ideas into products people can actually use instead of limiting myself to academic work. Alongside my studies, I build real projects for businesses and individuals, from institutional websites to booking and management systems.\n\nI like being involved throughout the process: understanding the problem, defining a clear solution, building it and improving it until it works well. I want to keep growing as a developer, contribute to challenging projects and create solutions with concrete value.",
         skillsLabel: "Skills",
         skillsTitle: "Technologies, tools and focus areas",
         experienceLabel: "Experience",
@@ -360,23 +317,13 @@ export default function Home() {
           "AI assistants",
         ];
 
-  const projects = [
-    {
-      title: content.project1Title,
-      description: content.project1Description,
-      features: content.project1Features,
-      stack: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Vercel"],
-      status: content.projectStatus1,
-      demoUrl: "https://reserva-cancha-zeta.vercel.app/",
-    },
-  ];
-
   const navItems = [
     { id: "home", href: "#home-section", label: content.nav.home },
+    { id: "proyectos", href: "#proyectos", label: content.nav.projects },
     { id: "experience", href: "#experience", label: content.nav.experience },
-    { id: "projects", href: "#projects", label: content.nav.projects },
     { id: "skills", href: "#skills", label: content.nav.skills },
     { id: "about", href: "#about", label: content.nav.about },
+    { id: "contact", href: "#contact", label: content.nav.contact },
   ];
 
   return (
@@ -407,7 +354,7 @@ export default function Home() {
                   <a
                     key={item.id}
                     href={item.href}
-                    className={`rounded-full px-4 py-2 text-xs font-bold tracking-[0.22em] transition md:px-5 ${
+                    className={`rounded-full px-4 py-2 text-xs font-bold tracking-[0.22em] transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#60a5fa] md:px-5 ${
                       active
                         ? isDark
                           ? "bg-[#1f3b67] text-[#60a5fa]"
@@ -426,7 +373,7 @@ export default function Home() {
             <div className="flex items-center gap-2">
               <button
                 onClick={() => setLanguage(language === "es" ? "en" : "es")}
-                className={`rounded-full border px-4 py-2 text-xs font-bold tracking-[0.18em] transition ${
+                className={`rounded-full border px-4 py-2 text-xs font-bold tracking-[0.18em] transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#60a5fa] ${
                   isDark
                     ? "border-white/10 bg-[#1b1b1b]/80 text-white hover:bg-white/10"
                     : "border-black/10 bg-white/90 text-black hover:bg-black/5"
@@ -438,7 +385,7 @@ export default function Home() {
               <button
                 onClick={() => setTheme(isDark ? "light" : "dark")}
                 aria-label={isDark ? "Cambiar a modo claro" : "Cambiar a modo oscuro"}
-                className={`inline-flex h-11 w-11 items-center justify-center rounded-full border transition ${
+                className={`inline-flex h-11 w-11 items-center justify-center rounded-full border transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#60a5fa] ${
                   isDark
                     ? "border-white/10 bg-[#1b1b1b]/80 text-yellow-300 hover:bg-white/10"
                     : "border-black/10 bg-white/90 text-[#111827] hover:bg-black/5"
@@ -474,21 +421,11 @@ export default function Home() {
 
         <section
           id="home-section"
-          className="grid items-center gap-10 pt-16 md:grid-cols-[1.4fr_0.8fr]"
+          className="grid scroll-mt-28 items-center gap-10 pb-8 pt-16 md:grid-cols-[1.4fr_0.8fr] md:pt-20"
         >
           <div>
-            <p
-              className={`mb-3 inline-block rounded-full border px-4 py-1 text-sm ${
-                isDark
-                  ? "border-white/15 bg-white/5 text-white/80"
-                  : "border-black/10 bg-white text-black/70"
-              }`}
-            >
-              {content.topBadge}
-            </p>
-
             <div className="max-w-4xl">
-              <h2 className="text-4xl font-semibold leading-tight tracking-tight md:text-6xl">
+              <h1 className="text-4xl font-semibold leading-tight tracking-tight sm:text-5xl md:text-6xl">
                 {content.heroTitle}{" "}
                 <span
                   className={
@@ -497,53 +434,43 @@ export default function Home() {
                 >
                   {content.heroTitleAccent}
                 </span>
-              </h2>
+              </h1>
 
-              <div className="mt-3 flex items-center">
-                <p
-                  className={`text-3xl font-semibold italic leading-tight md:text-5xl ${
+              <div className="mt-3 min-h-[5.5rem] md:min-h-[7.5rem]">
+                <TypewriterText
+                  phrases={phrases}
+                  className={`break-words text-3xl font-semibold italic leading-tight md:text-5xl ${
                     isDark ? "text-[#4f7cff]" : "text-[#2563eb]"
                   }`}
-                >
-                  {typedText}
-                  <span className="animate-pulse">|</span>
-                </p>
+                />
               </div>
 
               <p
-                className={`mt-8 max-w-2xl whitespace-pre-line text-base leading-7 md:text-lg ${
+                className={`mt-8 max-w-xl text-base leading-7 md:text-lg ${
                   isDark ? "text-white/75" : "text-black/70"
                 }`}
               >
                 {content.heroDescription}
               </p>
-
-              <p
-                className={`mt-6 max-w-2xl text-sm leading-7 md:text-base ${
-                  isDark ? "text-white/55" : "text-black/55"
-                }`}
-              >
-                {content.heroExtraText}
-              </p>
             </div>
 
             <div className="mt-8 flex flex-wrap gap-4">
               <a
-                href="#projects"
-                className={`rounded-2xl px-6 py-3 font-medium transition ${
+                href="#proyectos"
+                className={`rounded-2xl px-6 py-3 font-medium transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#60a5fa] focus-visible:ring-offset-2 ${
                   isDark
-                    ? "bg-white text-black hover:opacity-90"
-                    : "bg-[#111827] text-white hover:opacity-90"
+                    ? "bg-white text-black hover:opacity-90 focus-visible:ring-offset-[#0b0f19]"
+                    : "bg-[#111827] text-white hover:opacity-90 focus-visible:ring-offset-[#f5f7fb]"
                 }`}
               >
                 {content.viewProjects}
               </a>
               <a
                 href="#contact"
-                className={`rounded-2xl border px-6 py-3 font-medium transition ${
+                className={`rounded-2xl border px-6 py-3 font-medium transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#60a5fa] focus-visible:ring-offset-2 ${
                   isDark
-                    ? "border-white/15 text-white hover:bg-white/10"
-                    : "border-black/10 text-black hover:bg-black/5"
+                    ? "border-white/15 text-white hover:bg-white/10 focus-visible:ring-offset-[#0b0f19]"
+                    : "border-black/10 text-black hover:bg-black/5 focus-visible:ring-offset-[#f5f7fb]"
                 }`}
               >
                 {content.contactMe}
@@ -590,62 +517,26 @@ export default function Home() {
               }`}
             >
               <div
-                className={`aspect-[4/5] w-full overflow-hidden rounded-2xl ${
+                className={`relative aspect-[4/5] w-full overflow-hidden rounded-2xl ${
                   isDark ? "bg-white/10" : "bg-[#e5e7eb]"
                 }`}
               >
-                <img
+                <Image
                   src="/profile.png"
                   alt="Facundo Sanchez"
-                  className="h-full w-full object-cover"
+                  fill
+                  sizes="(max-width: 767px) calc(100vw - 80px), 384px"
+                  className="object-cover"
+                  priority
                 />
               </div>
             </div>
           </div>
         </section>
 
-        <section id="about" className="mt-24 scroll-mt-24">
-          <div className="max-w-3xl">
-            <p
-              className={`text-sm font-semibold uppercase tracking-[0.2em] ${
-                isDark ? "text-white/50" : "text-black/45"
-              }`}
-            >
-              {content.aboutLabel}
-            </p>
-            <h3 className="mt-3 text-3xl font-bold tracking-tight">
-              {content.aboutTitle}
-            </h3>
-            <p
-              className={`mt-6 whitespace-pre-line text-base leading-8 ${
-                isDark ? "text-white/75" : "text-black/70"
-              }`}
-            >
-              {content.aboutText}
-            </p>
-          </div>
-        </section>
+        <ProjectsSection language={language} isDark={isDark} />
 
-        <section id="skills" className="mt-24 scroll-mt-24">
-          <p
-            className={`text-center text-sm font-semibold uppercase tracking-[0.3em] ${
-              isDark ? "text-white/50" : "text-black/45"
-            }`}
-          >
-            {content.skillsLabel}
-          </p>
-          <h3 className="mt-3 text-center text-3xl font-bold tracking-tight">
-            {content.skillsTitle}
-          </h3>
-
-          <div className="mt-10 space-y-5">
-            <SkillRow items={skillsRow1} isDark={isDark} />
-            <SkillRow items={skillsRow2} reverse isDark={isDark} />
-            <SkillRow items={skillsRow3} isDark={isDark} />
-          </div>
-        </section>
-
-        <section id="experience" className="mt-24 scroll-mt-24">
+        <section id="experience" className="mt-24 scroll-mt-28">
           <p
             className={`text-sm font-semibold uppercase tracking-[0.2em] ${
               isDark ? "text-white/50" : "text-black/45"
@@ -653,9 +544,9 @@ export default function Home() {
           >
             {content.experienceLabel}
           </p>
-          <h3 className="mt-3 text-3xl font-bold tracking-tight">
+          <h2 className="mt-3 text-3xl font-bold tracking-tight">
             {content.experienceTitle}
-          </h3>
+          </h2>
 
           <div className="mt-10 grid gap-6 lg:grid-cols-2">
             <div
@@ -668,9 +559,9 @@ export default function Home() {
               <p className={isDark ? "text-sm text-white/50" : "text-sm text-black/50"}>
                 {content.professionalExperience}
               </p>
-              <h4 className="mt-2 text-xl font-semibold">
+              <h3 className="mt-2 text-xl font-semibold">
                 {content.experienceRole}
-              </h4>
+              </h3>
               <p className={isDark ? "mt-2 text-sm text-white/60" : "mt-2 text-sm text-black/55"}>
                 {content.experienceDate}
               </p>
@@ -692,9 +583,9 @@ export default function Home() {
               <p className={isDark ? "text-sm text-white/50" : "text-sm text-black/50"}>
                 {content.education}
               </p>
-              <h4 className="mt-2 text-xl font-semibold">
+              <h3 className="mt-2 text-xl font-semibold">
                 {content.educationTitle}
-              </h4>
+              </h3>
               <p className={isDark ? "mt-2 text-sm text-white/60" : "mt-2 text-sm text-black/55"}>
                 {content.educationDate}
               </p>
@@ -734,78 +625,72 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="projects" className="mt-24 scroll-mt-24">
+        <section id="skills" className="mt-24 scroll-mt-28">
           <p
-            className={`text-sm font-semibold uppercase tracking-[0.2em] ${
+            className={`text-center text-sm font-semibold uppercase tracking-[0.3em] ${
               isDark ? "text-white/50" : "text-black/45"
             }`}
           >
-            {content.projectsLabel}
+            {content.skillsLabel}
           </p>
-          <h3 className="mt-3 text-3xl font-bold tracking-tight">
-            {content.projectsTitle}
-          </h3>
-          <p className={isDark ? "mt-4 max-w-2xl text-white/70" : "mt-4 max-w-2xl text-black/65"}>
-            {content.projectsDescription}
-          </p>
+          <h2 className="mt-3 text-center text-3xl font-bold tracking-tight">
+            {content.skillsTitle}
+          </h2>
 
-          <div className="mt-10 grid max-w-3xl gap-6">
-            {projects.map((project) => (
-              <article
-                key={project.title}
-                className={`rounded-3xl border p-6 transition hover:-translate-y-1 ${
-                  isDark
-                    ? "border-white/10 bg-white/5 hover:bg-white/[0.07]"
-                    : "border-black/10 bg-white hover:bg-[#f9fafb]"
-                }`}
-              >
-                <p className={isDark ? "text-sm text-white/50" : "text-sm text-black/50"}>
-                  {project.status}
-                </p>
-                <h4 className="mt-2 text-xl font-semibold">{project.title}</h4>
-                <p className={isDark ? "mt-4 whitespace-pre-line text-sm leading-7 text-white/75" : "mt-4 whitespace-pre-line text-sm leading-7 text-black/70"}>
-                  {project.description}
-                </p>
-
-                <ul className={isDark ? "mt-5 list-disc space-y-2 pl-5 text-sm leading-6 text-white/70" : "mt-5 list-disc space-y-2 pl-5 text-sm leading-6 text-black/65"}>
-                  {project.features.map((feature) => (
-                    <li key={feature}>{feature}</li>
-                  ))}
-                </ul>
-
-                <div className="mt-5 flex flex-wrap gap-2">
-                  {project.stack.map((tech) => (
-                    <span
-                      key={tech}
-                      className={`rounded-full border px-3 py-1 text-xs ${
-                        isDark
-                          ? "border-white/10 bg-white/10 text-white/80"
-                          : "border-black/10 bg-[#f3f4f6] text-black/75"
-                      }`}
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-
-                <a
-                  href={project.demoUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  className={`mt-6 inline-flex rounded-2xl px-5 py-3 text-sm font-medium transition ${
-                    isDark
-                      ? "bg-white text-black hover:opacity-90"
-                      : "bg-[#111827] text-white hover:opacity-90"
-                  }`}
-                >
-                  {content.projectDemo}
-                </a>
-              </article>
-            ))}
+          <div className="mt-10 space-y-5">
+            <SkillRow items={skillsRow1} isDark={isDark} />
+            <SkillRow items={skillsRow2} reverse isDark={isDark} />
+            <SkillRow items={skillsRow3} isDark={isDark} />
           </div>
         </section>
 
-        <section id="contact" className="mt-24 scroll-mt-24 pb-10">
+        <section id="about" className="mt-24 scroll-mt-28">
+          <div className="grid items-center gap-10 md:grid-cols-[0.72fr_1.28fr] lg:gap-14">
+            <div className="order-2 mx-auto w-full max-w-xs md:order-1">
+              <div
+                className={`overflow-hidden rounded-3xl border p-3 ${
+                  isDark
+                    ? "border-white/10 bg-white/5"
+                    : "border-black/10 bg-white"
+                }`}
+              >
+                <div className="relative aspect-[4/5] overflow-hidden rounded-2xl">
+                  <Image
+                    src="/profile.png"
+                    alt="Facundo Sanchez"
+                    fill
+                    sizes="(max-width: 767px) calc(100vw - 96px), 320px"
+                    className="object-cover"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div className="order-1 md:order-2">
+              <p
+                className={`text-sm font-semibold uppercase tracking-[0.2em] ${
+                  isDark ? "text-white/50" : "text-black/45"
+                }`}
+              >
+                {content.aboutLabel}
+              </p>
+              <h2 className="mt-3 text-3xl font-bold tracking-tight">
+                {content.aboutTitle}
+              </h2>
+              <div
+                className={`mt-6 max-w-[68ch] space-y-5 text-base leading-8 ${
+                  isDark ? "text-white/75" : "text-black/70"
+                }`}
+              >
+                {content.aboutText.split("\n\n").map((paragraph) => (
+                  <p key={paragraph}>{paragraph}</p>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="contact" className="mt-24 scroll-mt-28 pb-10">
           <div
             className={`rounded-[2rem] border p-8 md:p-10 ${
               isDark
@@ -820,9 +705,9 @@ export default function Home() {
             >
               {content.contactLabel}
             </p>
-            <h3 className="mt-3 text-3xl font-bold tracking-tight">
+            <h2 className="mt-3 text-3xl font-bold tracking-tight">
               {content.contactTitle}
-            </h3>
+            </h2>
             <p className={isDark ? "mt-4 max-w-2xl whitespace-pre-line text-white/75" : "mt-4 max-w-2xl whitespace-pre-line text-black/70"}>
               {content.contactDescription}
             </p>
@@ -830,7 +715,7 @@ export default function Home() {
             <div className="mt-8 grid gap-4 md:grid-cols-2">
               <a
                 href="mailto:facundosanchez0318@gmail.com"
-                className={`rounded-2xl border p-5 transition ${
+                className={`rounded-2xl border p-5 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#60a5fa] ${
                   isDark
                     ? "border-white/10 bg-white/5 hover:bg-white/10"
                     : "border-black/10 bg-white hover:bg-[#f9fafb]"
@@ -845,8 +730,13 @@ export default function Home() {
               <a
                 href="https://github.com/facu526"
                 target="_blank"
-                rel="noreferrer"
-                className={`rounded-2xl border p-5 transition ${
+                rel="noopener noreferrer"
+                aria-label={
+                  language === "es"
+                    ? "Abrir perfil de GitHub de Facundo Sanchez en una nueva pestaña"
+                    : "Open Facundo Sanchez's GitHub profile in a new tab"
+                }
+                className={`rounded-2xl border p-5 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#60a5fa] ${
                   isDark
                     ? "border-white/10 bg-white/5 hover:bg-white/10"
                     : "border-black/10 bg-white hover:bg-[#f9fafb]"
@@ -861,8 +751,13 @@ export default function Home() {
               <a
                 href="https://linkedin.com/in/facundo-sanchez-03a219360"
                 target="_blank"
-                rel="noreferrer"
-                className={`rounded-2xl border p-5 transition ${
+                rel="noopener noreferrer"
+                aria-label={
+                  language === "es"
+                    ? "Abrir perfil de LinkedIn de Facundo Sanchez en una nueva pestaña"
+                    : "Open Facundo Sanchez's LinkedIn profile in a new tab"
+                }
+                className={`rounded-2xl border p-5 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#60a5fa] ${
                   isDark
                     ? "border-white/10 bg-white/5 hover:bg-white/10"
                     : "border-black/10 bg-white hover:bg-[#f9fafb]"
