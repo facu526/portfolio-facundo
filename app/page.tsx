@@ -3,7 +3,9 @@
 import Image from "next/image";
 import { CSSProperties, useEffect, useMemo, useState } from "react";
 import ProjectsSection from "./components/projects-section";
+import ServicesContactFlow from "./components/services-contact-flow";
 import TypewriterText from "./components/typewriter-text";
+import WhatsAppFloatingButton from "./components/whatsapp-floating-button";
 
 type Language = "es" | "en";
 type Theme = "dark" | "light";
@@ -57,7 +59,15 @@ export default function Home() {
   const isDark = theme === "dark";
 
   useEffect(() => {
-    const ids = ["home", "proyectos", "experience", "skills", "about", "contact"];
+    const ids = [
+      "home",
+      "proyectos",
+      "experience",
+      "skills",
+      "about",
+      "pricing",
+      "contact",
+    ];
 
     const handleScroll = () => {
       const scrollY = window.scrollY + 140;
@@ -154,14 +164,6 @@ export default function Home() {
           "Base preparada para futuras mejoras como panel administrativo, disponibilidad dinámica y gestión de horarios.",
         ],
         projectDemo: "Ver demo",
-        contactLabel: "Contacto",
-        contactTitle: "Conectemos",
-        contactDescription:
-          "Estoy abierto a oportunidades junior, pasantías, proyectos freelance y colaboraciones donde pueda aportar en el desarrollo de soluciones web, sistemas internos, automatizaciones o productos digitales.\n\nSi tenés una idea, negocio o proceso que podría mejorarse con tecnología, podemos conectar y evaluar una solución.",
-        email: "Email",
-        github: "GitHub",
-        linkedin: "LinkedIn",
-        phone: "Teléfono",
         roleSubtitle: "Ingeniería en Informática | Desarrollador Web Full Stack",
         languageButton: "EN",
       },
@@ -229,14 +231,6 @@ export default function Home() {
           "Foundation prepared for future improvements such as an admin panel, dynamic availability and schedule management.",
         ],
         projectDemo: "View demo",
-        contactLabel: "Contact",
-        contactTitle: "Let's connect",
-        contactDescription:
-          "I am open to junior opportunities, internships, freelance projects and collaborations where I can contribute to web solutions, internal systems, automations or digital products.\n\nIf you have an idea, business or process that could be improved with technology, we can connect and evaluate a solution.",
-        email: "Email",
-        github: "GitHub",
-        linkedin: "LinkedIn",
-        phone: "Phone",
         roleSubtitle: "Computer Engineering | Full Stack Web Developer",
         languageButton: "ES",
       },
@@ -333,7 +327,7 @@ export default function Home() {
           "--marquee-fade": isDark ? "#0b0f19" : "#f5f7fb",
         } as CSSProperties
       }
-      className={`min-h-screen transition-colors duration-300 ${
+      className={`min-h-screen overflow-x-clip transition-colors duration-300 ${
         isDark ? "bg-[#0b0f19] text-white" : "bg-[#f5f7fb] text-[#111827]"
       }`}
     >
@@ -690,103 +684,10 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="contact" className="mt-24 scroll-mt-28 pb-10">
-          <div
-            className={`rounded-[2rem] border p-8 md:p-10 ${
-              isDark
-                ? "border-white/10 bg-gradient-to-br from-white/10 to-white/5"
-                : "border-black/10 bg-gradient-to-br from-white to-[#eef2f7]"
-            }`}
-          >
-            <p
-              className={`text-sm font-semibold uppercase tracking-[0.2em] ${
-                isDark ? "text-white/50" : "text-black/45"
-              }`}
-            >
-              {content.contactLabel}
-            </p>
-            <h2 className="mt-3 text-3xl font-bold tracking-tight">
-              {content.contactTitle}
-            </h2>
-            <p className={isDark ? "mt-4 max-w-2xl whitespace-pre-line text-white/75" : "mt-4 max-w-2xl whitespace-pre-line text-black/70"}>
-              {content.contactDescription}
-            </p>
-
-            <div className="mt-8 grid gap-4 md:grid-cols-2">
-              <a
-                href="mailto:facundosanchez0318@gmail.com"
-                className={`rounded-2xl border p-5 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#60a5fa] ${
-                  isDark
-                    ? "border-white/10 bg-white/5 hover:bg-white/10"
-                    : "border-black/10 bg-white hover:bg-[#f9fafb]"
-                }`}
-              >
-                <p className={isDark ? "text-sm text-white/50" : "text-sm text-black/50"}>
-                  {content.email}
-                </p>
-                <p className="mt-1 font-medium">facundosanchez0318@gmail.com</p>
-              </a>
-
-              <a
-                href="https://github.com/facu526"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={
-                  language === "es"
-                    ? "Abrir perfil de GitHub de Facundo Sanchez en una nueva pestaña"
-                    : "Open Facundo Sanchez's GitHub profile in a new tab"
-                }
-                className={`rounded-2xl border p-5 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#60a5fa] ${
-                  isDark
-                    ? "border-white/10 bg-white/5 hover:bg-white/10"
-                    : "border-black/10 bg-white hover:bg-[#f9fafb]"
-                }`}
-              >
-                <p className={isDark ? "text-sm text-white/50" : "text-sm text-black/50"}>
-                  {content.github}
-                </p>
-                <p className="mt-1 font-medium">github.com/facu526</p>
-              </a>
-
-              <a
-                href="https://linkedin.com/in/facundo-sanchez-03a219360"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={
-                  language === "es"
-                    ? "Abrir perfil de LinkedIn de Facundo Sanchez en una nueva pestaña"
-                    : "Open Facundo Sanchez's LinkedIn profile in a new tab"
-                }
-                className={`rounded-2xl border p-5 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#60a5fa] ${
-                  isDark
-                    ? "border-white/10 bg-white/5 hover:bg-white/10"
-                    : "border-black/10 bg-white hover:bg-[#f9fafb]"
-                }`}
-              >
-                <p className={isDark ? "text-sm text-white/50" : "text-sm text-black/50"}>
-                  {content.linkedin}
-                </p>
-                <p className="mt-1 font-medium">
-                  linkedin.com/in/facundo-sanchez-03a219360
-                </p>
-              </a>
-
-              <div
-                className={`rounded-2xl border p-5 ${
-                  isDark
-                    ? "border-white/10 bg-white/5"
-                    : "border-black/10 bg-white"
-                }`}
-              >
-                <p className={isDark ? "text-sm text-white/50" : "text-sm text-black/50"}>
-                  {content.phone}
-                </p>
-                <p className="mt-1 font-medium">+54 11 26684038</p>
-              </div>
-            </div>
-          </div>
-        </section>
+        <ServicesContactFlow language={language} isDark={isDark} />
       </section>
+
+      <WhatsAppFloatingButton language={language} isDark={isDark} />
     </main>
   );
 }
