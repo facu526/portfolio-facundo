@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import type { PackageInquiryPrefill } from "../lib/package-inquiry";
+import type { ServiceInquiryPrefill } from "../lib/service-inquiry";
 import ContactSection from "./contact-section";
-import ServicesPricingSection from "./services-pricing-section";
+import ServicesSection from "./services-section";
 
 type ServicesContactFlowProps = {
   language: "es" | "en";
@@ -17,7 +17,7 @@ export default function ServicesContactFlow({
   const [projectType, setProjectType] = useState("");
   const [message, setMessage] = useState("");
 
-  function handlePackageInquiry(inquiry: PackageInquiryPrefill) {
+  function handleServiceInquiry(inquiry: ServiceInquiryPrefill) {
     setProjectType(inquiry.projectType);
     setMessage(inquiry.message);
 
@@ -36,10 +36,10 @@ export default function ServicesContactFlow({
 
   return (
     <>
-      <ServicesPricingSection
+      <ServicesSection
         language={language}
         isDark={isDark}
-        onSelectPlan={handlePackageInquiry}
+        onSelectService={handleServiceInquiry}
       />
       <ContactSection
         language={language}

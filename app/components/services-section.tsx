@@ -2,28 +2,27 @@
 
 import { CSSProperties, useEffect, useRef, useState } from "react";
 import {
-  PACKAGE_INQUIRIES,
-  type PackageInquiryPrefill,
-} from "../lib/package-inquiry";
+  SERVICE_INQUIRIES,
+  type ServiceInquiryPrefill,
+} from "../lib/service-inquiry";
 import { ArrowUpRightIcon, CheckIcon } from "./icons";
 
 type Language = "es" | "en";
 
-type ServicesPricingSectionProps = {
+type ServicesSectionProps = {
   language: Language;
   isDark: boolean;
-  onSelectPlan: (inquiry: PackageInquiryPrefill) => void;
+  onSelectService: (inquiry: ServiceInquiryPrefill) => void;
 };
 
-const plans = [
+const services = [
   {
-    badge: { es: "Ideal para comenzar", en: "Ideal to get started" },
+    badge: { es: "Presencia esencial", en: "Essential presence" },
     name: { es: "Landing Page", en: "Landing Page" },
     description: {
       es: "Una página enfocada en presentar tu negocio, servicio o propuesta de forma clara y profesional.",
       en: "A focused page that presents your business, service or proposal clearly and professionally.",
     },
-    price: "$300.000 ARS",
     features: {
       es: [
         "Diseño personalizado",
@@ -48,17 +47,16 @@ const plans = [
         "30 days of post-launch support",
       ],
     },
-    inquiry: PACKAGE_INQUIRIES.landingPage,
+    inquiry: SERVICE_INQUIRIES.landingPage,
     featured: false,
   },
   {
-    badge: { es: "Más elegido", en: "Most popular" },
+    badge: { es: "Sitio completo", en: "Complete website" },
     name: { es: "Web Institucional", en: "Business Website" },
     description: {
       es: "Un sitio más completo para presentar el negocio, sus servicios, trabajos e información.",
       en: "A more complete website to present your business, services, work and key information.",
     },
-    price: "$450.000 ARS",
     features: {
       es: [
         "Diseño completamente personalizado",
@@ -91,7 +89,7 @@ const plans = [
         "30 days of post-launch support",
       ],
     },
-    inquiry: PACKAGE_INQUIRIES.institutionalWebsite,
+    inquiry: SERVICE_INQUIRIES.institutionalWebsite,
     featured: true,
   },
   {
@@ -101,7 +99,6 @@ const plans = [
       es: "Una tienda preparada para mostrar productos y comenzar a vender por internet.",
       en: "An online store ready to showcase products and start selling on the internet.",
     },
-    price: "$700.000 ARS",
     features: {
       es: [
         "Diseño personalizado",
@@ -132,16 +129,16 @@ const plans = [
         "30 days of post-launch support",
       ],
     },
-    inquiry: PACKAGE_INQUIRIES.onlineStore,
+    inquiry: SERVICE_INQUIRIES.onlineStore,
     featured: false,
   },
 ] as const;
 
-export default function ServicesPricingSection({
+export default function ServicesSection({
   language,
   isDark,
-  onSelectPlan,
-}: ServicesPricingSectionProps) {
+  onSelectService,
+}: ServicesSectionProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const [isVisible, setIsVisible] = useState(false);
 
@@ -168,37 +165,41 @@ export default function ServicesPricingSection({
     language === "es"
       ? {
           eyebrow: "Servicios",
-          title: "Servicios y",
-          accent: "precios",
+          title: "Servicios",
+          backdrop: "servicios",
           intro:
-            "Opciones claras para transformar una idea en una experiencia web profesional.",
-          from: "Desde",
-          includes: "El paquete incluye",
-          button: "Consultar este paquete",
-          note: "Los valores son orientativos y pueden variar según las funciones y el alcance de cada proyecto. El dominio, el mantenimiento y los servicios externos se cotizan por separado.",
-          aria: (planName: string) =>
-            `Completar el formulario de contacto para consultar el paquete ${planName}`,
+            "Soluciones web adaptadas a las necesidades y objetivos de cada proyecto.",
+          includes: "Puede incluir",
+          button: "Consultar proyecto",
+          quoteNote:
+            "Cada proyecto se cotiza de forma personalizada según sus necesidades, funcionalidades y alcance. Contame tu idea y preparo una propuesta a medida.",
+          externalNote:
+            "El dominio, el mantenimiento y los servicios externos pueden cotizarse por separado.",
+          aria: (serviceName: string) =>
+            `Completar el formulario de contacto para consultar un proyecto de ${serviceName}`,
         }
       : {
           eyebrow: "Services",
-          title: "Services and",
-          accent: "pricing",
+          title: "Services",
+          backdrop: "services",
           intro:
-            "Clear options to turn an idea into a professional web experience.",
-          from: "From",
-          includes: "What is included",
-          button: "Ask about this package",
-          note: "Prices are estimates and may vary depending on each project's features and scope. Domain, maintenance and external services are quoted separately.",
-          aria: (planName: string) =>
-            `Fill in the contact form to ask about the ${planName} package`,
+            "Solutions tailored to the needs and goals of each project.",
+          includes: "May include",
+          button: "Discuss your project",
+          quoteNote:
+            "Each project is quoted individually based on its requirements, features and scope. Tell me about your idea and I'll prepare a tailored proposal.",
+          externalNote:
+            "Domain, maintenance and external services may be quoted separately.",
+          aria: (serviceName: string) =>
+            `Fill in the contact form to discuss a ${serviceName} project`,
         };
 
   return (
     <section
       ref={sectionRef}
-      id="pricing"
+      id="services"
       className="relative left-1/2 isolate mt-28 w-[min(1320px,calc(100vw-2rem))] -translate-x-1/2 scroll-mt-40 md:mt-36 xl:scroll-mt-28"
-      aria-labelledby="pricing-title"
+      aria-labelledby="services-title"
     >
       <span
         aria-hidden="true"
@@ -206,7 +207,7 @@ export default function ServicesPricingSection({
           isDark ? "text-white/[0.025]" : "text-[#2563eb]/[0.035]"
         }`}
       >
-        {copy.accent}
+        {copy.backdrop}
       </span>
 
       <div
@@ -222,12 +223,11 @@ export default function ServicesPricingSection({
           {copy.eyebrow}
         </p>
         <h2
-          id="pricing-title"
+          id="services-title"
           className="mt-4 text-[clamp(2.7rem,6vw,5rem)] font-semibold leading-[0.98] tracking-[-0.045em]"
         >
-          {copy.title} {" "}
           <span className={isDark ? "text-[#4f7cff]" : "text-[#2563eb]"}>
-            {copy.accent}
+            {copy.title}
           </span>
         </h2>
         <p
@@ -240,11 +240,11 @@ export default function ServicesPricingSection({
       </div>
 
       <div className="relative z-10 mt-12 grid min-w-0 items-stretch gap-6 md:grid-cols-2 xl:mt-20 xl:grid-cols-3 xl:gap-0">
-        {plans.map((plan, index) => (
+        {services.map((service, index) => (
           <article
-            key={plan.name.es}
+            key={service.name.es}
             className={`section-reveal relative min-w-0 ${
-              plan.featured ? "xl:z-20" : "xl:z-10 xl:pt-10"
+              service.featured ? "xl:z-20" : "xl:z-10 xl:pt-10"
             } ${
               index === 2
                 ? "md:col-span-2 md:w-[calc(50%-0.75rem)] md:justify-self-center xl:col-span-1 xl:w-auto"
@@ -253,21 +253,21 @@ export default function ServicesPricingSection({
             style={{ "--reveal-delay": `${120 + index * 90}ms` } as CSSProperties}
           >
             <div
-              className={`pricing-card flex h-full min-w-0 flex-col rounded-[1.75rem] border p-6 sm:p-7 xl:px-8 xl:py-9 ${
-                plan.featured ? "pricing-card-featured" : ""
+              className={`service-card flex h-full min-w-0 flex-col rounded-[1.75rem] border p-6 sm:p-7 xl:px-8 xl:py-9 ${
+                service.featured ? "service-card-featured" : ""
               } ${
                 isDark
-                  ? plan.featured
+                  ? service.featured
                     ? "border-[#4f7cff]/75 bg-[#14203b] shadow-[0_28px_80px_rgba(36,75,170,0.3)]"
                     : "border-white/12 bg-[#121722] shadow-[0_20px_55px_rgba(0,0,0,0.22)]"
-                  : plan.featured
+                  : service.featured
                     ? "border-[#2563eb]/50 bg-[#eef4ff] shadow-[0_28px_80px_rgba(37,99,235,0.17)]"
                     : "border-black/10 bg-white shadow-[0_20px_55px_rgba(17,24,39,0.09)]"
               }`}
             >
               <span
                 className={`inline-flex w-fit rounded-full border px-3 py-1.5 text-[11px] font-bold uppercase tracking-[0.16em] ${
-                  plan.featured
+                  service.featured
                     ? isDark
                       ? "border-[#60a5fa]/40 bg-[#4f7cff]/18 text-[#93c5fd]"
                       : "border-[#2563eb]/25 bg-[#dbeafe] text-[#1d4ed8]"
@@ -276,35 +276,22 @@ export default function ServicesPricingSection({
                       : "border-black/10 bg-[#f5f7fb] text-black/50"
                 }`}
               >
-                {plan.badge[language]}
+                {service.badge[language]}
               </span>
 
               <h3 className="mt-5 text-3xl font-semibold leading-[1.02] tracking-[-0.035em] sm:text-[2.1rem]">
-                {plan.name[language]}
+                {service.name[language]}
               </h3>
               <p
                 className={`mt-4 text-sm leading-6 xl:min-h-[7.5rem] ${
                   isDark ? "text-white/62" : "text-black/60"
                 }`}
               >
-                {plan.description[language]}
+                {service.description[language]}
               </p>
 
-              <div className="mt-7">
-                <span
-                  className={`block text-xs font-bold uppercase tracking-[0.18em] ${
-                    isDark ? "text-white/45" : "text-black/42"
-                  }`}
-                >
-                  {copy.from}
-                </span>
-                <p className="mt-2 break-words text-[clamp(2rem,3.1vw,2.6rem)] font-bold leading-none tracking-[-0.045em]">
-                  {plan.price}
-                </p>
-              </div>
-
               <div
-                className={`my-7 h-px ${
+                className={`mb-7 mt-7 h-px ${
                   isDark ? "bg-white/10" : "bg-black/10"
                 }`}
               />
@@ -317,7 +304,7 @@ export default function ServicesPricingSection({
                 {copy.includes}
               </p>
               <ul className="mt-5 space-y-3.5">
-                {plan.features[language].map((feature) => (
+                {service.features[language].map((feature) => (
                   <li
                     key={feature}
                     className={`flex items-start gap-3 text-sm leading-5 ${
@@ -341,11 +328,16 @@ export default function ServicesPricingSection({
               <div className="mt-auto pt-8">
                 <button
                   type="button"
-                  onClick={() => onSelectPlan(plan.inquiry)}
+                  onClick={() =>
+                    onSelectService({
+                      projectType: service.inquiry.projectType,
+                      message: service.inquiry.message[language],
+                    })
+                  }
                   aria-controls="contact"
-                  aria-label={copy.aria(plan.name[language])}
+                  aria-label={copy.aria(service.name[language])}
                   className={`inline-flex min-h-13 w-full cursor-pointer items-center justify-center gap-2 rounded-2xl px-4 py-3 text-center text-sm font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#60a5fa] focus-visible:ring-offset-2 ${
-                    plan.featured
+                    service.featured
                       ? "bg-[#4f7cff] text-white hover:bg-[#648bff] focus-visible:ring-offset-[#111827]"
                       : isDark
                         ? "bg-white text-[#0b0f19] hover:bg-white/90 focus-visible:ring-offset-[#0b0f19]"
@@ -361,14 +353,17 @@ export default function ServicesPricingSection({
         ))}
       </div>
 
-      <p
+      <div
         className={`section-reveal relative z-10 mx-auto mt-12 max-w-4xl text-center text-xs leading-6 sm:text-sm ${
           isVisible ? "is-visible" : ""
         } ${isDark ? "text-white/42" : "text-black/45"}`}
         style={{ "--reveal-delay": "420ms" } as CSSProperties}
       >
-        {copy.note}
-      </p>
+        <p className={isDark ? "text-white/62" : "text-black/62"}>
+          {copy.quoteNote}
+        </p>
+        <p className="mt-2">{copy.externalNote}</p>
+      </div>
     </section>
   );
 }
