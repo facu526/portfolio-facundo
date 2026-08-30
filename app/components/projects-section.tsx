@@ -18,6 +18,26 @@ type Project = {
 
 const projects: Project[] = [
   {
+    name: "TRAZA",
+    description: {
+      es: "E-commerce de indumentaria con catálogo, variantes de producto, carrito, usuarios y checkout, desarrollado con una arquitectura full stack.",
+      en: "Fashion e-commerce with product catalog, product variants, cart, user accounts and checkout, built with a full-stack architecture.",
+    },
+    technologies: [
+      "Next.js",
+      "TypeScript",
+      "Supabase",
+      "PostgreSQL",
+      "Tailwind CSS",
+    ],
+    url: "https://traza-seven.vercel.app/",
+    image: "/projects/traza.webp",
+    columns: "md:col-span-5",
+    height: "h-[360px] sm:h-[400px] md:h-[390px] lg:h-[430px]",
+    sizes:
+      "(max-width: 767px) calc(100vw - 48px), (max-width: 1023px) 42vw, 470px",
+  },
+  {
     name: "Áurea Eventos",
     description: {
       es: "Sitio institucional para un salón de eventos, orientado a presentar sus espacios, propuestas y canales de contacto.",
@@ -26,10 +46,10 @@ const projects: Project[] = [
     technologies: ["Next.js", "TypeScript", "Tailwind CSS"],
     url: "https://aurea-eventos-muestra.vercel.app/",
     image: "/projects/aurea-eventos.webp",
-    columns: "md:col-span-5",
+    columns: "md:col-span-7",
     height: "h-[360px] sm:h-[400px] md:h-[390px] lg:h-[430px]",
     sizes:
-      "(max-width: 767px) calc(100vw - 48px), (max-width: 1023px) 42vw, 470px",
+      "(max-width: 767px) calc(100vw - 48px), (max-width: 1023px) 58vw, 670px",
   },
   {
     name: "Sur Amoblamientos",
@@ -41,7 +61,7 @@ const projects: Project[] = [
     url: "https://sur-amoblamientos.vercel.app/",
     image: "/projects/sur-amoblamientos.webp",
     columns: "md:col-span-7",
-    height: "h-[360px] sm:h-[400px] md:h-[390px] lg:h-[430px]",
+    height: "h-[360px] sm:h-[400px] md:h-[430px] lg:h-[470px]",
     sizes:
       "(max-width: 767px) calc(100vw - 48px), (max-width: 1023px) 58vw, 670px",
   },
@@ -54,10 +74,10 @@ const projects: Project[] = [
     technologies: ["Next.js", "TypeScript", "Supabase", "PostgreSQL"],
     url: "https://reserva-cancha-zeta.vercel.app/",
     image: "/projects/reserva-cancha.webp",
-    columns: "md:col-span-7",
+    columns: "md:col-span-5",
     height: "h-[360px] sm:h-[400px] md:h-[430px] lg:h-[470px]",
     sizes:
-      "(max-width: 767px) calc(100vw - 48px), (max-width: 1023px) 58vw, 670px",
+      "(max-width: 767px) calc(100vw - 48px), (max-width: 1023px) 42vw, 470px",
   },
   {
     name: "Portfolio Abril Pessano",
@@ -68,10 +88,10 @@ const projects: Project[] = [
     technologies: ["Next.js", "TypeScript", "Tailwind CSS"],
     url: "https://portfolio-abril-pessano.vercel.app/",
     image: "/projects/portfolio-abril.webp",
-    columns: "md:col-span-5",
+    columns: "md:col-span-7",
     height: "h-[360px] sm:h-[400px] md:h-[430px] lg:h-[470px]",
     sizes:
-      "(max-width: 767px) calc(100vw - 48px), (max-width: 1023px) 42vw, 470px",
+      "(max-width: 767px) calc(100vw - 48px), (max-width: 1023px) 58vw, 670px",
   },
 ];
 
@@ -237,7 +257,7 @@ export default function ProjectsSection({
           }`}
           aria-hidden="true"
         >
-          01 — 04
+          01 — 05
         </p>
       </div>
 
