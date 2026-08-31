@@ -171,7 +171,8 @@ a {
 }
 
 .project-card-content,
-.project-card-link-icon {
+.project-card-link-icon,
+.project-card-github-icon {
   opacity: 1;
   transform: translateY(0);
   transition:
@@ -205,6 +206,11 @@ a {
     transform: translateY(-8px);
   }
 
+  .project-card-github-icon {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+
   .project-card:hover,
   .project-card:focus-visible {
     z-index: 2;
@@ -225,10 +231,17 @@ a {
   .project-card:hover .project-card-content,
   .project-card:focus-visible .project-card-content,
   .project-card:hover .project-card-link-icon,
-  .project-card:focus-visible .project-card-link-icon {
+  .project-card:focus-visible .project-card-link-icon,
+  .projects-reveal:hover .project-card-github-icon,
+  .projects-reveal:focus-within .project-card-github-icon {
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+.project-card-github-icon:focus-visible {
+  outline: 3px solid #60a5fa;
+  outline-offset: 4px;
 }
 
 @media (hover: hover) and (pointer: fine) {

@@ -2,21 +2,48 @@
 
 import Image from "next/image";
 import { CSSProperties, useEffect, useRef, useState } from "react";
+import { GithubIcon } from "./icons";
 
 type Language = "es" | "en";
 
 type Project = {
   name: string;
+  nameEn?: string;
   description: Record<Language, string>;
   technologies: string[];
   url: string;
+  githubUrl?: string;
   image: string;
+  imagePosition?: string;
   columns: string;
   height: string;
   sizes: string;
 };
 
 const projects: Project[] = [
+  {
+    name: "KERN — Teclados Mecánicos 3D",
+    nameEn: "KERN — 3D Mechanical Keyboards",
+    description: {
+      es: "Configurador 3D de teclados mecánicos con personalización en tiempo real, sonidos, prueba de escritura, carrito y checkout.",
+      en: "Interactive 3D mechanical keyboard configurator with real-time customization, sounds, typing test, cart, and checkout.",
+    },
+    technologies: [
+      "React",
+      "TypeScript",
+      "Three.js",
+      "React Three Fiber",
+      "GSAP",
+      "Zustand",
+    ],
+    url: "https://kern-keyboards.vercel.app/",
+    githubUrl: "https://github.com/facu526/kern-keyboards",
+    image: "/projects/kern.webp",
+    imagePosition: "object-left md:object-center",
+    columns: "md:col-span-12",
+    height: "h-[360px] sm:h-[400px] md:h-[390px] lg:h-[430px]",
+    sizes: "(max-width: 767px) calc(100vw - 48px), 1140px",
+  },
   {
     name: "TRAZA",
     description: {
@@ -128,14 +155,20 @@ function ProjectCard({
   isDark,
   isVisible,
 }: ProjectCardProps) {
+  const displayName =
+    language === "en" && project.nameEn ? project.nameEn : project.name;
   const linkLabel =
     language === "es"
-      ? `Abrir proyecto ${project.name} en una nueva pestaña`
-      : `Open ${project.name} project in a new tab`;
+      ? `Abrir proyecto ${displayName} en una nueva pestaña`
+      : `Open ${displayName} project in a new tab`;
+  const githubLabel =
+    language === "es"
+      ? `Abrir repositorio de ${displayName} en GitHub`
+      : `Open the ${displayName} repository on GitHub`;
 
   return (
     <article
-      className={`projects-reveal min-w-0 ${project.columns} ${
+      className={`projects-reveal relative min-w-0 ${project.columns} ${
         isVisible ? "is-visible" : ""
       }`}
       style={{ "--reveal-delay": `${120 + index * 85}ms` } as CSSProperties}
@@ -155,10 +188,10 @@ function ProjectCard({
       >
         <Image
           src={project.image}
-          alt={`${language === "es" ? "Captura de la portada de" : "Homepage screenshot of"} ${project.name}`}
+          alt={`${language === "es" ? "Captura de la portada de" : "Homepage screenshot of"} ${displayName}`}
           fill
           sizes={project.sizes}
-          className="project-card-image object-cover object-top"
+          className={`project-card-image object-cover ${project.imagePosition ?? "object-top"}`}
         />
 
         <div className="project-card-overlay absolute inset-0" />
@@ -173,7 +206,7 @@ function ProjectCard({
 
         <div className="project-card-content absolute inset-x-0 bottom-0 z-10 p-5 sm:p-6">
           <h3 className="text-2xl font-semibold tracking-[-0.03em] text-white sm:text-[1.75rem]">
-            {project.name}
+            {displayName}
           </h3>
           <p className="mt-2 hidden max-w-2xl text-sm leading-6 text-white/72 sm:block">
             {project.description[language]}
@@ -190,6 +223,18 @@ function ProjectCard({
           </div>
         </div>
       </a>
+
+      {project.githubUrl ? (
+        <a
+          href={project.githubUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={githubLabel}
+          className="project-card-github-icon absolute right-[4.75rem] top-5 z-20 inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/25 bg-black/25 text-white backdrop-blur-md"
+        >
+          <GithubIcon className="h-5 w-5" />
+        </a>
+      ) : null}
     </article>
   );
 }
@@ -257,7 +302,7 @@ export default function ProjectsSection({
           }`}
           aria-hidden="true"
         >
-          01 — 05
+          01 — 06
         </p>
       </div>
 
