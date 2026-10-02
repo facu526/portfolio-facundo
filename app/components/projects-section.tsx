@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { CSSProperties, useEffect, useRef, useState } from "react";
+import FixenraCard from "./fixenra-card";
 import { GithubIcon } from "./icons";
 
 type Language = "es" | "en";
@@ -302,16 +303,22 @@ export default function ProjectsSection({
           }`}
           aria-hidden="true"
         >
-          01 — 06
+          01 — 07
         </p>
       </div>
 
       <div className="mt-10 grid grid-cols-1 gap-3 md:mt-14 md:grid-cols-12">
+        <FixenraCard
+          index={0}
+          language={language}
+          isDark={isDark}
+          isVisible={isVisible}
+        />
         {projects.map((project, index) => (
           <ProjectCard
             key={project.name}
             project={project}
-            index={index}
+            index={index + 1}
             language={language}
             isDark={isDark}
             isVisible={isVisible}

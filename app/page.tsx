@@ -11,8 +11,8 @@ type Language = "es" | "en";
 type Theme = "dark" | "light";
 
 const phrases = [
-  "Desarrollador web full stack",
-  "Aplicaciones web para negocios",
+  "Desarrollador Full Stack · Web & Mobile",
+  "Software web y mobile para negocios",
 ] as const;
 
 type SkillRowProps = {
